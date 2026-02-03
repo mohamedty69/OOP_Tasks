@@ -39,34 +39,23 @@ namespace Stuent_Grade_Book
             }
             return average = total / len;
         }
-        public void returnTopStudent(int count)
+        public List<Student> GetTopStudents(int count)
         {
-            var dict = new Dictionary<double, string>();
-            var l = new List<double>();
-            foreach (var student in students)
+            if (count > students.Count || count <= 0)
+                throw new ArgumentException("Invalid number");
+
+            var sortedStudents = students
+                .OrderByDescending(s => s.calculateAverageGrade())
+                .ToList();
+
+            var result = new List<Student>();
+
+            for (int i = 0; i < count; i++)
             {
-                dict.Add(student.calculateAverageGrade(), student.stuedentName);
-                l.Add(student.calculateAverageGrade());
+                result.Add(sortedStudents[i]);
             }
-            l.Sort();
-            l.Reverse();
-            if (count > l.Count)
-            {
-                Console.WriteLine("Invalid Number");
-            }
-            else
-            {
-                for (int i = 0; i < count; i++)
-                    {
-                        foreach (var kvp in dict)
-                        {
-                            if (kvp.Key == l[i])
-                            {
-                                Console.WriteLine($"{kvp.Value} : {kvp.Key}");
-                            }
-                        }
-                }
-            }
+
+            return result;
         }
         public void displayAllstudents()
         {
