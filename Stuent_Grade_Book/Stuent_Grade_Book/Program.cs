@@ -1,5 +1,6 @@
 ﻿using Stuent_Grade_Book;
 using System;
+using System.Collections.Concurrent;
 namespace StudentGradeBook
 {
     class Program
@@ -35,9 +36,12 @@ namespace StudentGradeBook
             Console.WriteLine();
             Console.WriteLine("Class Average: " + gradeBook.getClassAverage());
             Console.WriteLine();
-            gradeBook.returnTopStudent(2);
+            gradeBook.GetTopStudents(2);
             Console.WriteLine();
             student1.getStudentInfo();
+            Console.WriteLine();
+            var res = gradeBook.GetTopStudents(1);
+            Console.WriteLine($"Top Student: {res[0].stuedentName} with Average Grade: {res[0].calculateAverageGrade()}");
 
         }
     }
