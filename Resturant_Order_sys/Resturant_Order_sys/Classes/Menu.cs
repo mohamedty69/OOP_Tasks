@@ -35,6 +35,9 @@ namespace Resturant_Order_sys.Classes
         public List<MenuItem> SearchItems(string name) =>
              Items.Where(i => i.Name == name).ToList();
         public List<MenuItem> DisplayMenu() =>
-            Items.OrderBy(i => i.Category).Where(i => i.IsAvailable == true).ToList();
+            Items
+                .Where(i => i.IsAvailable)
+                .OrderBy(i => i.Category) 
+                .ToList();
     }
 }

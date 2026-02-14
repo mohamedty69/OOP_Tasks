@@ -1,5 +1,6 @@
 ﻿using Resturant_Order_sys.Classes;
 using System;
+using System.Net.WebSockets;
 
 namespace Resturant_Order_sys
 {
@@ -33,43 +34,44 @@ namespace Resturant_Order_sys
             var menuList = restaurant.Menu.DisplayMenu();
             foreach(var m in menuList)
             {
-                Console.WriteLine(m.GetItemInfo());
+                Console.WriteLine($" {m.Category}:");
+                Console.WriteLine($"-{m.Name}: {m.Description} - {m.Price}");
                 Console.WriteLine();
             }
 
             //// Create order for table 5
-            //order1 = restaurant.createOrder(5)
-            //order1.addItem(burger, 2, "No onions")
-            //order1.addItem(fries, 2, "Extra crispy")
-            //order1.addItem(soda, 2, "No ice")
+            var order1 = restaurant.CreateOrder("ORD001", 5);
+            order1.AddItem(burger, 2, "No onions");
+            order1.AddItem(fries, 2, "Extra crispy");
+            order1.AddItem(soda, 2, "No ice");
 
             //// Display order summary
-            //print(order1.getOrderSummary())
+            order1.GetOrderSummary();
 
             //// Calculate with tip
-            //subtotal = order1.getSubtotal()
-            //tax = order1.getTax()
-            //tip = order1.calculateTip(0.15)  // 15% tip
-            //total = order1.getTotal() + tip
-
-            //print("\nSubtotal: $" + subtotal)
-            //print("Tax (8%): $" + tax)
-            //print("Tip (15%): $" + tip)
-            //print("Total: $" + total)
+            var subtotal = order1.GetSubTotal();
+            var tax = order1.GetTax();
+            var tip = order1.CalculateTip(0.15m);  // 15% tip
+            var total = order1.GetTotal();
+            
+            Console.WriteLine($"\nSubtotal: ${subtotal}");
+            Console.WriteLine($"Tax: ${tax}");
+            Console.WriteLine($"Tip: ${tip}");
+            Console.WriteLine($"Total: ${total}");
 
             //// Update order status
-            //order1.updateStatus("Preparing")
-            //print("\nOrder status: " + order1.status)
+            order1.UpdateStatus("Preparing");
+            Console.WriteLine("\nOrder status: " + order1.Status);
 
-            //order1.updateStatus("Ready")
-            //print("Order status: " + order1.status)
+            order1.UpdateStatus("Ready");
+            Console.WriteLine("Order status: " + order1.Status);
 
             //// Complete order
-            //restaurant.completeOrder(order1.orderId)
-            //print("Order status: " + order1.status)
+            restaurant.CompleteOrder(order1.OrderId);
+            Console.WriteLine("Order status: " + order1.Status);
 
             //// Get revenue
-            //print("\nTotal Revenue: $" + restaurant.getTotalRevenue())
+            Console.WriteLine("\nTotal Revenue: $" + restaurant.GetTotalRevenue());
         }
     }
 }

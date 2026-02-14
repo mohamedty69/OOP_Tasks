@@ -14,7 +14,7 @@ namespace Resturant_Order_sys.Classes
             if (TableNumber < 0) throw new ArgumentException("The TableNumber can not be negative");
             else TableNumber = tableNumber;
             OrderItem = new List<OrderItem>();
-            OrderTime = DateTime.UtcNow;
+            OrderTime = DateTime.Now;
         }
 
         public string OrderId { get; set; }
@@ -49,7 +49,7 @@ namespace Resturant_Order_sys.Classes
             _tipResult = GetSubTotal() * tip;
             return _tipResult;
         }
-        public decimal GetToal() => GetSubTotal() + GetTax() + _tipResult;
+        public decimal GetTotal() => GetSubTotal() + GetTax() + _tipResult;
         public void UpdateStatus (string ordersStatus) => Status = ordersStatus;
         public void GetOrderSummary()
         {

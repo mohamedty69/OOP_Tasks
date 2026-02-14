@@ -18,10 +18,12 @@ namespace Resturant_Order_sys.Classes
         public Menu Menu { get; set; }
         public List<Order> OrderList { get; set; }
         public decimal TaxRate { get; set; }
-        public void CreateOrder(string orderId, int tableNumber)
+        public Order CreateOrder(string orderId, int tableNumber)
         {
             var order = new Order(orderId, tableNumber);
             OrderList.Add(order);
+            return order;
+
         }
         public Order GetOrder(string orderId)
         {
@@ -45,7 +47,7 @@ namespace Resturant_Order_sys.Classes
         {
             var order = OrderList.FirstOrDefault(o => o.OrderId == orderId);
             if (order == null) throw new ArgumentNullException("The order is not exist");
-            order.Status = "Complited";
+            order.Status = "Completed";
         }
         public decimal GetTotalRevenue()
         {
