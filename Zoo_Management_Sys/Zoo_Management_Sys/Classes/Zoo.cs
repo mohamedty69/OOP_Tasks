@@ -62,7 +62,7 @@ namespace Zoo_Management_Sys.Classes
         }
         public IEnumerable<Animal> GetAnimalsBySpecies(string species)
         {
-            var animals = Animals.Where(a => a.GetHabitat() == species);
+            var animals = Animals.Where(a => a.Species == species);
             return animals;
         }
         public decimal CalculateTotalWeeklyCost() => Animals.Select(a => a.CalculateWeeklyCost()).Sum();
@@ -71,7 +71,7 @@ namespace Zoo_Management_Sys.Classes
         {
             return $"Total Animals: {Animals.Count}\n" +
                 $"Total Zookeepers: {ZooKeepers.Count}\n" +
-                $"Habitats Represented: {Animals.Select(a => a.GetHabitat()).Count()}\n" +
+                $"Habitats Represented: {Animals.Select(a => a.GetHabitat()).Distinct().Count()}\n" +
                 $"Total Weekly Maintenance: ${CalculateTotalWeeklyCost()}\n" +
                 $"Average Animal Age: {Animals.Select(a => a.Age).Average()} years";
         }

@@ -2,7 +2,7 @@
 using System;
 using System.Net.WebSockets;
 
-namespace Resturant_Order_sys
+namespace Restaurant_Order_sys
 {
     internal class Program
     {
