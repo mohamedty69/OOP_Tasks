@@ -1,0 +1,8 @@
+<Solution>
+  <Project Path="Exception_Propagation/Exception_Propagation.csproj" />
+  <Project Path="Multi_Threading_Tasks/Multi_Threading_Tasks.csproj" />
+  <Project Path="Multi_Threading_Task_LongThread/Multi_Threading_Task_LongThread.csproj" />
+  <Project Path="SynchVsAsync/SynchVsAsync.csproj" />
+  <Project Path="Task_Continuation/Task_Continuation.csproj" />
+  <Project Path="Task_Delay/Task_Delay.csproj" />
+</Solution>
