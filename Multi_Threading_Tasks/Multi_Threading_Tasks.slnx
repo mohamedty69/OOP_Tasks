@@ -1,4 +1,5 @@
 <Solution>
+  <Project Path="Asynch_Functions/Asynch_Functions.csproj" Id="8f42f8d2-aca4-4114-b284-d5018c91c7b5" />
   <Project Path="Exception_Propagation/Exception_Propagation.csproj" />
   <Project Path="Multi_Threading_Tasks/Multi_Threading_Tasks.csproj" />
   <Project Path="Multi_Threading_Task_LongThread/Multi_Threading_Task_LongThread.csproj" />
