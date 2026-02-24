@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.4.3.min.js"></script>
+<script src="/signalr/hubs"></script>
+<script>
+    $(function () {
+        // code flow (work flow):
+        // first: we take the name of user and store it in variable called name in the page load.
+        // after take name from user we will start connection with server and subscribe to the method that we need to do when the server call it. in this case the method name is newMessage and it takes two parameters name and message. it is defined but it still not working.
+        // when we put a value in the field and click on send button the function send will be called and it will call the method sendMessage on server side and send the name and message to server. then the server will call the method newMessage on client side and send the name and message to client. then we will append the name and message in unordered list.
+        // last thing the method newMessage will be called when the server call it and it will take the name and message from server and append it in unordered list.
+
+        name = prompt("Enter your name", ""); // to get the name of user
+
+        // limit hubs
+        // with define proxy using let it is a block scope variable. remove let to make it glopal.
+        //let proxy = $.connection.chat
+
+        proxy = $.connection.chat
+
+        // start connection
+        // If you need to change the priorty of the technology that will be used in connection you can use $.connection.hub.start({ transport: 'longPolling' }) and change the transport to the technology that you want to use. this is the first one to check if the user support it or not. if not it will check the rest of them.
+        // Note: the technologies is WebSockets, Server-Sent Events, Forever Frame and Long Polling. the best technology is WebSockets but it is not supported by all browsers and servers. the connection layer see what is the best technology that is supported by both client and server and use it. if you want to see what technology is used in connection you can use $.connection.hub.transport.name after the connection is started.
+        $.connection.hub.start();
+
+        // subscribe callback method new
+        // Note: using proxy.client ==> because the function we need to do here will work on client side. and the function name is newMessage
+        proxy.client.newMessage = function (n, m) {
+            $("ul").append("<li>" + n + ": " + m + "</li>");
+        }
+
+    })
+    function send() {
+
+        // the function that I need to call it is on server side so I will use proxy.server and the function name sendMessage
+        //it takes two parameters name and message. so I will get the value of text input and send it as a message.make variable called name and take the value from user.
+        // you can make it array of string to arrange the technologies that will be used in connection. for example: $.connection.hub.start({ transport: ['webSockets', 'serverSentEvents', 'longPolling'] }) and it will check the technologies in the order that you put it and use the first one that is supported by both client and server.
+        proxy.server.sendMessage(name, $("#txt").val());
+    }
+</script>
+</head>
+<body>
+    <input type="text" id="txt" />
+    <button id="send" onclick="send()">Send</button>
+
+    <ul>
+        <li>Message</li>
+    </ul>
+</body>
+</html>
