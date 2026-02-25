@@ -19,5 +19,18 @@ namespace SignalRD1_Proj
             // sendMessage: The name of the method to call on the client. This method must be defined in the client code.
             Clients.All.newMessage(name, message);
         }
+        // let us imagine that we have class called message with properties name and Text, then we can change the method signature to accept an object of type message instead of two separate parameters. This can make the code cleaner and easier to maintain.
+        //[HubMethodName("sendMessage")]
+        //public void SendMessage(Message message)
+        //{
+        //    Clients.All.newMessage(message.Name, message.Text);
+        //}
+        // in the client code, we would need to create an object of type message and pass it to the sendMessage method instead of passing two separate parameters.
+        // the change in the client code would look something like this:
+        // prox.on('newMessage', function (message) {
+        //$("ul").append("<li><strong>" + message.Name + "</strong>: " + message.Text + "</li>");
+        // });
+        // calling server method:
+        // prox.invoke('sendMessage', { Name: name, Text: $("#txt").val() })
     }
 }

@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script src="Scripts/jquery-1.6.4.js"></script>
+    <script src="Scripts/jquery.signalR-2.4.3.min.js"></script>
+    <script src="/signalr/hubs"></script>
+    <script>
+        $(function (){
+            name = prompt("Enter you name. ")
+            // limit hubs
+            proxy = $.connection.chat;
+
+            // start connection
+            $.connection.hub.start();
+
+            // subscribe callback method
+            proxy.client.receiveMessage = function (n,m){
+                $("ul").append("<li>"+n+": "+m+"</li>");
+            }
+        })
+        function send(){
+            proxy.server.sendMessage(name , $("#txt").val());
+        }
+    </script>
+</head>
+<body>
+    <input type="text" id="txt" />
+    <button id="send" onclick="send()" >Send</button>
+
+
+
+    <ul>
+        <li>Message 1</li>
+    </ul>
+</body>
+</html>
